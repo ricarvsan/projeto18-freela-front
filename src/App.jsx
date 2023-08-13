@@ -33,7 +33,9 @@ export default function App() {
 
 const PagesContainer = styled.main`
   width: calc(100vw - 50px);
-  max-height: 100vh;
+  //max-height: 100vh;
+  height: 100%;
   padding: 25px;
   background-image: url('../src/assets/catback.png');
+  background-repeat: repeat;
 `

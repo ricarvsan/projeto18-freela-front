@@ -48,8 +48,4 @@ const SignInContainer = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  link {
-    color: red;
-  }
 `

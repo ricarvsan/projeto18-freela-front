@@ -8,12 +8,12 @@ const GlobalStyle = createGlobalStyle`
     }
     button {
         outline: none;
-        border: none;
+        border: 1px solid;
         border-radius: 5px;
-        background-color: #fff;
+        background-color: #EBC78E;
         font-size: 20px;
         font-weight: 600;
-        color: white;
+        color: black;
         cursor: pointer;
         width: 100%;
         padding: 12px;
@@ -49,9 +49,13 @@ const GlobalStyle = createGlobalStyle`
         font-weight: 700;
         font-size: 15px;
         line-height: 18px;
-        color: white;
+        color: black;
         text-decoration: none;
-        padding-top: 30px;
+        margin-top: 30px;
+        background-color: #EBC78E;
+        border: 1px solid;
+        border-radius: 5px;
+        padding: 5px;
     }
 `
 

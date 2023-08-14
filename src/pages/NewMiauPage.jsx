@@ -1,47 +1,47 @@
 import { Link, useNavigate } from "react-router-dom"
 import styled from "styled-components"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import axios from "axios"
 import { IMaskInput } from "react-imask"
+import { UserContext } from "../contexts/UserContext"
 
 export default function NewMiauPage() {
     const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [passwordConfirm, setPasswordConfirm] = useState('');
-    const [cpf, setCpf] = useState('');
-    const [phonenumber, setPhonenumber] = useState('');
+    const [about, setAbout] = useState('');
+    const [mainPhoto, setMainPhoto] = useState('');
+    const [photos, setPhotos] = useState([]);
+    const { user } = useContext(UserContext);
+
     const navigate = useNavigate();
 
+    const config = {
+        headers: {
+            Authorization: `Bearer ${user.token}`
+        }
+    }
 
-    function signUp(e) {
+
+    function NewMiau(e) {
         e.preventDefault();
 
-        if (password === passwordConfirm) {
-            axios.post(`${import.meta.env.VITE_API_URL}/cadastro`, { name, email, password, cpf, phonenumber })
-                .then(() => navigate('/'))
-                .catch(error => alert(error.response.data.message));
-        } else {
-            alert('As senhas precisam ser iguais!')
-        }
-        //console.log(cpf, cpf.length, phonenumber, phonenumber.length);
+
+        axios.post(`${import.meta.env.VITE_API_URL}/novo-miau`, { name, about, mainPhoto }, config)
+            .then(() => (navigate('/home')))
+            .catch(error => alert(error.response.data.message));
+
     }
 
     return (
         <NewMiauContainer>
-            <form onSubmit={signUp}>
+            <h1>Novo Miaudelo</h1>
+            <form onSubmit={NewMiau}>
                 <input value={name} onChange={e => setName(e.target.value)} placeholder="Nome" type="text" required />
-                <IMaskInput mask='000.000.000-00' title="\d{3}\.\d{3}\.\d{3}-\d{2}" value={cpf} onChange={e => setCpf(e.target.value)} placeholder="CPF " type="text" required />
-                <IMaskInput mask='(00) 00000-0000' value={phonenumber} onChange={e => setPhonenumber(e.target.value)} placeholder="Telefone" type="text" required />
-                <input value={email} onChange={e => setEmail(e.target.value)} placeholder="E-mail" type="email" required />
-                <input value={password} onChange={e => setPassword(e.target.value)} placeholder="Senha" type="password" autoComplete="new-password" required />
-                <input value={passwordConfirm} onChange={e => setPasswordConfirm(e.target.value)} placeholder="Confirme a senha" type="password" autoComplete="new-password" required />
+                <input value={mainPhoto} onChange={e => setMainPhoto(e.target.value)} placeholder="Url foto principal" type="url" required />
+                <input value={about} onChange={e => setAbout(e.target.value)} placeholder="Sobre" type="text" required />
                 <button type="submit">Cadastrar</button>
             </form>
 
-            <Link to='/'>
-                Já tem uma conta? Entre agora!
-            </Link>
+            <Link to='/home'>Voltar</Link>
         </NewMiauContainer>
     )
 }
@@ -52,4 +52,15 @@ const NewMiauContainer = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  h1 {
+    margin-bottom: 20px;
+    color: black;
+    background-color: #EBC78E;
+    border-radius: 5px;
+    padding: 5px;
+    border: 1px solid;
+  }
+  button {
+    color: black;
+  }
 `

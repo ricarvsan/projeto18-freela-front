@@ -31,10 +31,14 @@ export default function HomePage() {
 
     return (
         <HomePageContainer>
+            <Link to='/novo-miau'>
+                Cadastrar miau!
+            </Link>
             <Miaudelos>
                 {miaudelos.map(miau => (
-                    <Miau  key={miau.id} name={miau.name} url={miau.url} navi={() => navi(miau.id)} />
+                    miau ? <Miau  key={miau.id} name={miau.name} url={miau.url} navi={() => navi(miau.id)} /> : null
                 ))}
+                
             </Miaudelos>
         </HomePageContainer>
     );
@@ -57,6 +61,8 @@ const Miaudelo = styled.div`
     border: 1px solid #222;
     border-radius: 9px;
     overflow: hidden;
+    background-color: #EBC78E;
+    text-align: center;
     img {
         width: 100%;
     }
